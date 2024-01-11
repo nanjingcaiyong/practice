@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+<body>
+
+</body>
+<script>
+
+const dataURItoBlob =  (base64Data) => {
+    let byteString = base64Data
+    if (base64Data.split(',')[0].indexOf('base64') >= 0) {
+      byteString = atob(base64Data.split(',')[1]) // base64 解码
+    } else {
+      byteString = unescape(base64Data.split(',')[1])
+    }
+    // 获取文件类型
+    let mimeString = base64Data.split(',')[0].match(/:(.*?);/)[1] // mime类型
+    let uintArr = new Uint8Array(byteString.length) // 创建视图
+
+    for (let i = 0; i < byteString.length; i++) {
+      uintArr[i] = byteString.charCodeAt(i)
+    }
+    // 生成blob图片
+    const blob = new Blob([uintArr], {
+      type: mimeString
+    })
+    // 使用 Blob 创建一个指向类型化数组的URL, URL.createObjectURL是new Blob文件的方法,可以生成一个普通的url,可以直接使用,比如用在img.src上
+    return URL.createObjectURL(blob)
+  }
+
+  const imgStream = dataURItoBlob(`data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT0AAADICAYAAACaszaDAAAAAXNSR0IArs4c6QAACa1JREFUeF7t3VFyE1cUhGGNWAvgDUDxFntlwMoQbxRsQJi1oEnJKR5CUciYabvnzue3JPJx3//c/kuyY3na+UAAAQQ2RGDa0FkdFQEEENiRnkuAAAKbIkB6m1q3wyKAAOm5AwggsCkCpLepdTssAgiQnjuAAAKbIkB6m1q3wyKAAOm5AwggsCkCpLepdTssAgiQnjuAAAKbIkB6m1q3wyKAwNDSu7p6c31e8fz9+9u7VU/T3T/7QACBXxCY58M0TR/v/st+fzgePx1G5DSs9K5evH4373b/yc4HAgj8MYFpt3t/vP387o8/sfwThpTey+evPnhWV37zxFsHgXk+fP325WYdYe+XcjjpeYZ3v8V7FAL3JjCY+IaSHuHd+xp7IAJ/RGCkl7pDSe/li9fzH23SgxFA4N4Epv3+ZoQfbgwjPc/y7n13PRCBBxEY5dke6T1o/T4JgQ0SGOR7e8NIz09sN1hCR350Al9vP6/eGas/wI+t+37eo99/X3CDBEb4vh7pbfDiOjICDyVAeg8lF/g8z/QCUI1E4CcCpFd0JUivaBmiDEuA9IpWS3pFyxBlWAKkV7Ra0itahijDEiC9otWSXtEyRBmWAOkVrZb0ipYhyrAESK9otaRXtAxRhiVAekWrJb2iZYgyLAHSK1ot6RUtQ5RhCZBe0WqXkt75nSTOfx+g6GiiIPB3BE6n66X+dALp/d0qFv3sJaU34t8FWBS2YasicP4DWfPp9GGJ0KS3BMWFZpDeQiCNGY4A6f1/pd5w4KcrPsobJQ7XXAd6MAHSI73fXh7Se3C3fGIpAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkR3qZbplaSoD0SI/0SsspVoYA6ZEe6WW6ZWopAdIjPdIrLadYGQKkR3qkl+mWqaUESI/0SK+0nGJlCJAe6ZFeplumlhIgPdIjvdJyipUhQHqkd/lmzfPh8oM8AoEVEZim6yXSTvv9zfH4adX9mJYA0TDj5YvXc0MOGRAYmQDpFW2X9IqWIcqwBEivaLWkV7QMUYYlQHpFqyW9omWIMiwB0itaLekVLUOUYQmQXtFqSa9oGaIMS4D0ilZLekXLEGVYAqRXtFrSK1qGKMMSIL2i1ZJe0TJEGZYA6RWtlvQebxlfbz/X/U/t9v84+ye9x+F8r6/i0t8L0yIPIr1FMK5yCOn9Ym1XL16/m+f5n0ff6EK/W/jouVf4BUlvhUtbKvIT/V76NE0fj7ef3y1xjMVfptxJb7d7u0Q4MzoJkF7nXoZONc+Hr9++3CxxRtJbguLGZpDexhbecFzSa9jCdjOQ3nZ3/2QnJ70nQ+8Lnwk80fd1fgvf93THvpukN/Z+nQ4BBH4iQHquBAIIbIoA6W1q3Q6LAAKk5w4ggMCmCJDeptbtsAggQHruAAIIbIoA6W1q3Q6LAAKk5w4ggMCWCEy73fve3729enM9n04ftrQQZ0UAgSwB0svyNR0BBMoILPmWVou/4cCZlfe2K7sx4iCwcgJL/r53RHreXmrlN0x8BIoILPnS9nysiPTunu09f/Vh55fAi66OKAisk8CSz/Ki0rvyA4113jCpESgisPSzvKj0zsO9zC26PaIgsDICCeHFpfeDsZe6K7tt4iLwlATm+TA9e/b+ePx0SMSIfU/v57Dnl7u70+n6/O/9DY3EKs1EYMUEzqKbpo+7/f6Qkt0POo8mvRWvQ3QEEBiIAOkNtExHQQCBywRI7zIjj0AAgYEIkN5Ay3QUBBC4TID0LjPyCAQQGIgA6Q20TEdBAIHLBEjvMiOPQACBgQiQ3kDLdBQEELhMgPQuM/IIBBAYiADpDbRMR0EAgcsESO8yI49AAIGBCJDeQMt0FAQQuEzgX9yMqDI2ztzdAAAAAElFTkSuQmCC`)
+
+
+const preview = () => {
+  // 创建一个<a>元素用于下载或预览
+  const linkElement = document.createElement('a');
+  const img = document.createElement('img') 
+  img.src = imgStream
+  img.onload = function () {
+    document.documentElement.append(img)
+  }
+  linkElement.href = imgStream;
+  linkElement.target = "_blank";
+  linkElement.download = "preview.png";
+  const previewButton = document.createElement('button');
+  previewButton.textContent = 'Preview';
+  previewButton.addEventListener('click', () => {
+    window.open(imgStream, '_blank');
+  });
+
+  document.body.appendChild(previewButton);
+  document.body.appendChild(linkElement);
+}
+
+preview()
+
+</script>
+</html>
